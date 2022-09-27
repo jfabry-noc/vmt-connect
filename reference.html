@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Interfaces &mdash; vmt-connect 3.6.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Advanced Usage" href="advancedguide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> vmt-connect
+          </a>
+              <div class="version">
+                3.6.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">Basic User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advancedguide.html">Advanced Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Interfaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-module">Main Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connections">Connections</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#connection">Connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#session">Session</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#response-handlers">Response Handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pager">Pager</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#versioning">Versioning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#version">Version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#versionspec">VersionSpec</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utilities">Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.enumerate_stats"><code class="docutils literal notranslate"><span class="pre">enumerate_stats()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#exceptions">Exceptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTConnectionError"><code class="docutils literal notranslate"><span class="pre">VMTConnectionError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTVersionError"><code class="docutils literal notranslate"><span class="pre">VMTVersionError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTUnknownVersion"><code class="docutils literal notranslate"><span class="pre">VMTUnknownVersion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTVersionWarning"><code class="docutils literal notranslate"><span class="pre">VMTVersionWarning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTMinimumVersionWarning"><code class="docutils literal notranslate"><span class="pre">VMTMinimumVersionWarning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTFormatError"><code class="docutils literal notranslate"><span class="pre">VMTFormatError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTNextCursorMissingError"><code class="docutils literal notranslate"><span class="pre">VMTNextCursorMissingError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTPError"><code class="docutils literal notranslate"><span class="pre">HTTPError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTP400Error"><code class="docutils literal notranslate"><span class="pre">HTTP400Error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTP401Error"><code class="docutils literal notranslate"><span class="pre">HTTP401Error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTP404Error"><code class="docutils literal notranslate"><span class="pre">HTTP404Error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTP500Error"><code class="docutils literal notranslate"><span class="pre">HTTP500Error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTP502Error"><code class="docutils literal notranslate"><span class="pre">HTTP502Error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTP503Error"><code class="docutils literal notranslate"><span class="pre">HTTP503Error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.HTTPWarning"><code class="docutils literal notranslate"><span class="pre">HTTPWarning</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecated-interfaces">Deprecated Interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTConnection"><code class="docutils literal notranslate"><span class="pre">VMTConnection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vmtconnect.VMTVersion"><code class="docutils literal notranslate"><span class="pre">VMTVersion</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#security-module">Security Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#credential">Credential</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility-module">Utility Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vmtconnect.util.enumerate_stats"><code class="docutils literal notranslate"><span class="pre">enumerate_stats()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vmtconnect.util.mem_cast"><code class="docutils literal notranslate"><span class="pre">mem_cast()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vmtconnect.util.to_defaultdict"><code class="docutils literal notranslate"><span class="pre">to_defaultdict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">vmt-connect</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Developer Interfaces</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/reference.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="developer-interfaces">
+<h1>Developer Interfaces<a class="headerlink" href="#developer-interfaces" title="Permalink to this heading"></a></h1>
+<p>This part of the documentation covers all the interfaces of vmt-connect.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#main-module" id="id1">Main Module</a></p>
+<ul>
+<li><p><a class="reference internal" href="#connections" id="id2">Connections</a></p>
+<ul>
+<li><p><a class="reference internal" href="#connection" id="id3">Connection</a></p></li>
+<li><p><a class="reference internal" href="#session" id="id4">Session</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#response-handlers" id="id5">Response Handlers</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pager" id="id6">Pager</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#versioning" id="id7">Versioning</a></p>
+<ul>
+<li><p><a class="reference internal" href="#version" id="id8">Version</a></p></li>
+<li><p><a class="reference internal" href="#versionspec" id="id9">VersionSpec</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#utilities" id="id10">Utilities</a></p></li>
+<li><p><a class="reference internal" href="#exceptions" id="id11">Exceptions</a></p></li>
+<li><p><a class="reference internal" href="#deprecated-interfaces" id="id12">Deprecated Interfaces</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#security-module" id="id13">Security Module</a></p>
+<ul>
+<li><p><a class="reference internal" href="#classes" id="id14">Classes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#credential" id="id15">Credential</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#utility-module" id="id16">Utility Module</a></p></li>
+</ul>
+</div>
+<section id="main-module">
+<h2><a class="toc-backref" href="#id1">Main Module</a><a class="headerlink" href="#main-module" title="Permalink to this heading"></a></h2>
+<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">Import:</span></code> <strong>vmtconnect</strong></p>
+<section id="connections">
+<h3><a class="toc-backref" href="#id2">Connections</a><a class="headerlink" href="#connections" title="Permalink to this heading"></a></h3>
+<section id="connection">
+<h4><a class="toc-backref" href="#id3">Connection</a><a class="headerlink" href="#connection" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.Connection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">Connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">req_versions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_hateoas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection" title="Permalink to this definition"></a></dt>
+<dd><p>Turbonomic instance connection class</p>
+<p>The primary API interface. In addition to the noted method parameters, each
+method also supports a per call <strong>fetch_all</strong> flag, as well as a <strong>pager</strong> flag.
+Each of these override the connection global property, and will be safely
+ignored if the endpoint does not support, or does not require paging the
+results. Additionally, you may pass <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Request" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Request</span></code></a> keyword
+arguments to each call if required (e.g. <a class="reference external" href="https://docs.python-requests.org/en/master/user/quickstart/#timeouts">timeout</a>).
+Care should be taken, as some parameters will break <em>vmt-connect</em> calls if they
+conflict with existing headers, or alter expected results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The hostname or IP address to connect to. (default:
+<cite>localhost</cite>)</p></li>
+<li><p><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Username to authenticate with.</p></li>
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Password to authenticate with.</p></li>
+<li><p><strong>auth</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Pre-encoded ‘Basic Authentication’ string which
+may be used in place of a <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> pair.</p></li>
+<li><p><strong>base_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Base endpoint path to use. (default:
+<cite>/vmturbo/rest/</cite>)</p></li>
+<li><p><strong>req_versions</strong> (<a class="reference internal" href="#vmtconnect.VersionSpec" title="vmtconnect.VersionSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">VersionSpec</span></code></a>, optional) – Versions requirements object.</p></li>
+<li><p><strong>disable_hateoas</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Removes HATEOAS navigation links.
+(default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+<li><p><strong>ssl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Use SSL or not. (default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+<li><p><strong>verify</strong> (<em>string</em><em>, </em><em>optional</em>) – SSL certificate bundle path. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>cert</strong> (<em>string</em><em>, </em><em>optional</em>) – Local client side certificate file.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Dicitonary of additional persistent headers.</p></li>
+<li><p><strong>use_session</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, a <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Session" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Session</span></code></a>
+will be created, otherwise individual <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Request" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Request</span></code></a>
+calls will be made. (default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+<li><p><strong>proxies</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of proxy definitions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.disable_hateoas">
+<span class="sig-name descname"><span class="pre">disable_hateoas</span></span><a class="headerlink" href="#vmtconnect.Connection.disable_hateoas" title="Permalink to this definition"></a></dt>
+<dd><p>HATEOAS links state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.fetch_all">
+<span class="sig-name descname"><span class="pre">fetch_all</span></span><a class="headerlink" href="#vmtconnect.Connection.fetch_all" title="Permalink to this definition"></a></dt>
+<dd><p>Fetch all cursor results state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.headers">
+<span class="sig-name descname"><span class="pre">headers</span></span><a class="headerlink" href="#vmtconnect.Connection.headers" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary of custom headers for all calls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.last_response">
+<span class="sig-name descname"><span class="pre">last_response</span></span><a class="headerlink" href="#vmtconnect.Connection.last_response" title="Permalink to this definition"></a></dt>
+<dd><p>The last response object
+received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Response</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.proxies">
+<span class="sig-name descname"><span class="pre">proxies</span></span><a class="headerlink" href="#vmtconnect.Connection.proxies" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary of proxies to use. You can also configure
+proxies using the <cite>HTTP_PROXY</cite> and <cite>HTTPS_PROXY</cite> environment variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.results_limit">
+<span class="sig-name descname"><span class="pre">results_limit</span></span><a class="headerlink" href="#vmtconnect.Connection.results_limit" title="Permalink to this definition"></a></dt>
+<dd><p>Results set limiting &amp; curor stepping value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.update_headers">
+<span class="sig-name descname"><span class="pre">update_headers</span></span><a class="headerlink" href="#vmtconnect.Connection.update_headers" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary of custom headers for put and post calls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Connection.version">
+<span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#vmtconnect.Connection.version" title="Permalink to this definition"></a></dt>
+<dd><p>Turbonomic instance version object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#vmtconnect.Version" title="vmtconnect.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#vmtconnect.VMTConnectionError" title="vmtconnect.VMTConnectionError"><strong>VMTConnectionError</strong></a> – If connection to the server failed.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.VMTUnknownVersion" title="vmtconnect.VMTUnknownVersion"><strong>VMTUnknownVersion</strong></a> – When unable to determine the API base path.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.HTTP401Error" title="vmtconnect.HTTP401Error"><strong>HTTP401Error</strong></a> – When access is denied.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The default minimum version for classic builds is 6.1.x, and for XL it
+is 7.21.x Using a previous version will trigger a version warning. To
+avoid this warning, you will need to explicitly pass in a <a class="reference internal" href="#vmtconnect.VersionSpec" title="vmtconnect.VersionSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">VersionSpec</span></code></a>
+object for the version desired.</p>
+<p>Beginning with v6.0 of Turbonomic, HTTP redirects to a self-signed HTTPS
+connection. Because of this, vmt-connect defaults to using SSL. Versions
+prior to 6.0 using HTTP will need to manually set ssl to <code class="docutils literal notranslate"><span class="pre">False</span></code>. If
+<strong>verify</strong> is given a path to a directory, the directory must have been
+processed using the c_rehash utility supplied with OpenSSL. For client
+side certificates using <strong>cert</strong>: the private key to your local certificate
+must be unencrypted. Currently, Requests, which vmt-connect relies on,
+does not support using encrypted keys. Requests uses certificates from
+the package certifi which should be kept up to date.</p>
+<p>The /api/v2 path was added in 6.4, and the /api/v3 path was added in XL
+branch 7.21. The XL API is not intended to be an extension of the Classic
+API, though there is extensive parity. <em>vmt-connect</em> will attempt to
+detect which API you are connecting to and adjust accordingly where
+possible.</p>
+<p>XL uses OID identifiers internally instead of UUID identifiers. The
+change generally does not affect the API, the UUID label is still used,
+although the structure of the IDs is different.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.add_group">
+<span class="sig-name descname"><span class="pre">add_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.add_group" title="Permalink to this definition"></a></dt>
+<dd><p>Raw group creation method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dto</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – JSON representation of the GroupApiDTO.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Group object in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://turbonomic.github.io/vmt-connect/start.html#turbonomic-rest-api-guides">https://turbonomic.github.io/vmt-connect/start.html#turbonomic-rest-api-guides</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.add_static_group">
+<span class="sig-name descname"><span class="pre">add_static_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.add_static_group" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a static group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Group display name.</p></li>
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Group type.</p></li>
+<li><p><strong>members</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of member UUIDs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Group object in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.add_static_group_members">
+<span class="sig-name descname"><span class="pre">add_static_group_members</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.add_static_group_members" title="Permalink to this definition"></a></dt>
+<dd><p>Add members to an existing static group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – UUID of the group to be updated.</p></li>
+<li><p><strong>members</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of member entity UUIDs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The updated group definition.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.add_template">
+<span class="sig-name descname"><span class="pre">add_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.add_template" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a template based on the supplied DTO object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dto</strong> (<em>obj</em>) – Template definition</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Template object in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.del_group">
+<span class="sig-name descname"><span class="pre">del_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.del_group" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – UUID of the group to be removed.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> on success, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.del_market">
+<span class="sig-name descname"><span class="pre">del_market</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scenario</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.del_market" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a market, and optionally the associated scenario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – UUID of the market to be removed.</p></li>
+<li><p><strong>scenario</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> will remove the scenario too.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> on success, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.del_scenario">
+<span class="sig-name descname"><span class="pre">del_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.del_scenario" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a scenario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – UUID of the scenario to be removed.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> on success, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_actions">
+<span class="sig-name descname"><span class="pre">get_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of actions.</p>
+<p>The get_actions method returns a list of actions from a given market,
+or can be used to lookup a specific action by its uuid. The options are
+mutually exclusive, and a uuid will override a market lookup. If neither
+parameter is provided, all actions from the real-time market will be
+listed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>market</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – The market to list actions from</p></li>
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of actions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_cached_inventory">
+<span class="sig-name descname"><span class="pre">get_cached_inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_cached_inventory" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the entities inventory from cache, populating the cache if
+necessary. The ID provided should be either a market ID, or one of the
+alternative inventory IDs:</p>
+<ul class="simple">
+<li><p>__clusters - Clusters</p></li>
+<li><p>__groups  - Groups</p></li>
+<li><p>__group_entities - Group entities</p></li>
+<li><p>__group_members - Group members</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Inventory id to get cached inventory for.</p></li>
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – If supplied, the matching entity will be returned
+instead of the entire cache.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of market entities in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_clusters">
+<span class="sig-name descname"><span class="pre">get_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_clusters" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of clusters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Cluster UUID.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, will retrieve entities from the
+market cache. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of clusters in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_current_user">
+<span class="sig-name descname"><span class="pre">get_current_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_current_user" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the current user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of one user object in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_datacenters">
+<span class="sig-name descname"><span class="pre">get_datacenters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_datacenters" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of datacenters in the given market.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p></li>
+<li><p><strong>market</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market to query. (default: <cite>Market</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of datacenters in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_datastores">
+<span class="sig-name descname"><span class="pre">get_datastores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_datastores" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of datastores in the given market.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p></li>
+<li><p><strong>market</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market to query. (default: <cite>Market</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of datastores in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_entities">
+<span class="sig-name descname"><span class="pre">get_entities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_entities" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of entities in the given market.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Entity type to filter on.</p></li>
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p></li>
+<li><p><strong>detail</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Include entity aspect details. This
+parameter works only when specifying an entity UUID. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>market</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market to query. (default: <code class="docutils literal notranslate"><span class="pre">Market</span></code>)</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, will retrieve entities from the
+market cache. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of entities in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_entity_actions">
+<span class="sig-name descname"><span class="pre">get_entity_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_entity_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of entity actions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Entity UUID.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing all actions for the given the entity.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_entity_by_remoteid">
+<span class="sig-name descname"><span class="pre">get_entity_by_remoteid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">remote_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_entity_by_remoteid" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of entities from the real-time market for a given remoteId</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>remote_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Remote id to lookup.</p></li>
+<li><p><strong>target_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name of Turbonomic target known to host
+the entity.</p></li>
+<li><p><strong>target_uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – UUID of Turbonomic target known to host
+the entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of entities in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_entity_cluster">
+<span class="sig-name descname"><span class="pre">get_entity_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_entity_cluster" title="Permalink to this definition"></a></dt>
+<dd><p>Get the cluster an entity belongs to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_entity_groups">
+<span class="sig-name descname"><span class="pre">get_entity_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_entity_groups" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of groups the entity belongs to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Entity UUID.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing groups the entity belongs to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_entity_stats">
+<span class="sig-name descname"><span class="pre">get_entity_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">related_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_entity_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Returns stats for the specific scope of entities.</p>
+<p>Provides entity level stats with filtering. If using the DTO keyword,
+all other parameters save kwargs will be ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of entities to scope to.</p></li>
+<li><p><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Unix timestamp in miliseconds. Uses
+current time if blank.</p></li>
+<li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Unix timestamp in miliseconds. Uses current
+time if blank.</p></li>
+<li><p><strong>stats</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List of stats classes to retrieve.</p></li>
+<li><p><strong>related_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Related entity type to pull stats for.</p></li>
+<li><p><strong>dto</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Complete JSON DTO of the stats required.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of stats for all periods between start and end dates.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_group_actions">
+<span class="sig-name descname"><span class="pre">get_group_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_group_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of group actions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Group UUID.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing all actions for the given the group.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_group_by_name">
+<span class="sig-name descname"><span class="pre">get_group_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_group_by_name" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the first group that match <cite>name</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Group name to lookup.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing the group in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_group_entities">
+<span class="sig-name descname"><span class="pre">get_group_entities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_group_entities" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a detailed list of member entities that belong to the group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Group UUID.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, will retrieve entities from the
+market cache. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing all members of the group and their related consumers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_group_members">
+<span class="sig-name descname"><span class="pre">get_group_members</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_group_members" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of members that belong to the group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Group UUID.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, will retrieve entities from the
+market cache. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing all members of the group.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_group_stats">
+<span class="sig-name descname"><span class="pre">get_group_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_group_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the aggregated statistics for a group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Specific group UUID to lookup.</p></li>
+<li><p><strong>stats_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List of filters to apply.</p></li>
+<li><p><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Unix timestamp in miliseconds or relative
+time string.</p></li>
+<li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Unix timestamp in miliseconds or relative
+time string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing the group stats in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_groups">
+<span class="sig-name descname"><span class="pre">get_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_groups" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of groups in the given market</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p></li>
+<li><p><strong>cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, will retrieve entities from the
+market cache. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of groups in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_market_entities">
+<span class="sig-name descname"><span class="pre">get_market_entities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_market_entities" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of entities in the given market.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market UUID. (default: <cite>Market</cite>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of market entities in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_market_entities_stats">
+<span class="sig-name descname"><span class="pre">get_market_entities_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_market_entities_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of market entity statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market UUID. (default: <cite>Market</cite>)</p></li>
+<li><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – DTO style filter to limit stats returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of entity stats objects in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_market_state">
+<span class="sig-name descname"><span class="pre">get_market_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_market_state" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the state of a market.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market UUID. (default: <cite>Market</cite>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string representation of the market state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_market_stats">
+<span class="sig-name descname"><span class="pre">get_market_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_market_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of market statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market UUID. (default: <cite>Market</cite>)</p></li>
+<li><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – DTO style filter to limit stats returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of stat objects in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_markets">
+<span class="sig-name descname"><span class="pre">get_markets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_markets" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of markets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of markets in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_physicalmachines">
+<span class="sig-name descname"><span class="pre">get_physicalmachines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_physicalmachines" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of hosts in the given market.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p></li>
+<li><p><strong>market</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market to query. (default: <cite>Market</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of hosts in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_scenarios">
+<span class="sig-name descname"><span class="pre">get_scenarios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_scenarios" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of scenarios in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_supplychains">
+<span class="sig-name descname"><span class="pre">get_supplychains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_supplychains" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a set of supplychains for the given uuid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuids</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of UUIDs to query.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – List of entity types.</p></li>
+<li><p><strong>states</strong> – (list, optional): List of entity states to filter by.</p></li>
+<li><p><strong>detail</strong> – (str, optional): Entity detail level.</p></li>
+<li><p><strong>environment</strong> – (str, optional): Environment to filter by.</p></li>
+<li><p><strong>aspects</strong> – (list, optional): List of entity aspects to filter by.</p></li>
+<li><p><strong>health</strong> – (bool, optional): If <code class="docutils literal notranslate"><span class="pre">True</span></code> entity health information will
+included. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_target_actions">
+<span class="sig-name descname"><span class="pre">get_target_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_target_actions" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list actions on a target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Entity UUID.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing all actions for entities of the given the target.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_target_for_entity">
+<span class="sig-name descname"><span class="pre">get_target_for_entity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'VirtualMachine'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_target_for_entity" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of templates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Entity UUID to lookup.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Name to lookup.</p></li>
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Entity type for name based lookups (Default: <cite>VirtualMachine</cite>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of targets for an entity in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Use of UUIDs is strongly encouraged to avoid collisions.
+Only one parameter is required. If both are supplied, <strong>uuid</strong> overrides.
+If a name lookup returns multiple entities, only the first is returned.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_targets" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing targets in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_template_by_name">
+<span class="sig-name descname"><span class="pre">get_template_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_template_by_name" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a template by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the template.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing the template in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_templates">
+<span class="sig-name descname"><span class="pre">get_templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_templates" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of templates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing templates in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_users">
+<span class="sig-name descname"><span class="pre">get_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_users" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of user objects in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.get_virtualmachines">
+<span class="sig-name descname"><span class="pre">get_virtualmachines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">market</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Market'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.get_virtualmachines" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of virtual machines in the given market.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specific UUID to lookup.</p></li>
+<li><p><strong>market</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Market to query. (default: <cite>Market</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of virtual machines in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.is_xl">
+<span class="sig-name descname"><span class="pre">is_xl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.is_xl" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the connection is to an XL or Classic type instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if connected to an XL instance, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.request">
+<span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GET'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.request" title="Permalink to this definition"></a></dt>
+<dd><p>Constructs and sends an appropriate HTTP request.</p>
+<p>Most responses will be returned as a list of one or more objects, as
+parsed from the JSON response. As of v3.2.0 you may request a <a class="reference internal" href="#vmtconnect.Pager" title="vmtconnect.Pager"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pager</span></code></a>
+instance instead. The <strong>pager</strong> and <strong>fetch_all</strong> parameters may be used to
+alter the response behaviour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API resource to utilize, relative to <code class="docutils literal notranslate"><span class="pre">base_path</span></code>.</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – HTTP method to use for the request. (default: <cite>GET</cite>)</p></li>
+<li><p><strong>query</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – A dictionary of key-value paires to attach.
+A single pre-processed string may also be used, for backwards
+compatibility.</p></li>
+<li><p><strong>dto</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Data transfer object to send to the server.</p></li>
+<li><p><strong>pager</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, a <a class="reference internal" href="#vmtconnect.Pager" title="vmtconnect.Pager"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pager</span></code></a>
+instance will be returned, instead of a single response of
+the cursor. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>fetch_all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, will fetch all results
+into a single response when a cursor is returned, otherwise only
+the current result set is returned. This option overrides the
+<cite>pager</cite> parameter. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Sets the response limit for a single call.
+This overrides results_limit, if it is also set.</p></li>
+<li><p><strong>nocache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, responses will not be
+cached in the <a class="reference internal" href="#vmtconnect.Connection.last_response" title="vmtconnect.Connection.last_response"><code class="xref py py-attr docutils literal notranslate"><span class="pre">last_response</span></code></a> attribute.
+(default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>**kwargs</strong> – Additional <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Request" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Request</span></code></a> keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The <strong>fetch_all</strong> parameter default was changed in v3.2 from <code class="docutils literal notranslate"><span class="pre">True</span></code>
+to <code class="docutils literal notranslate"><span class="pre">False</span></code> with the addition of the <a class="reference internal" href="#vmtconnect.Pager" title="vmtconnect.Pager"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pager</span></code></a> response
+class.
+String based <strong>query</strong> parameters are deprecated, use dictionaries.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.request_check_error">
+<span class="sig-name descname"><span class="pre">request_check_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.request_check_error" title="Permalink to this definition"></a></dt>
+<dd><p>Checks a request response for common errors and raises their corresponding exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#vmtconnect.HTTPError" title="vmtconnect.HTTPError"><strong>HTTPError</strong></a> – All unhandled non 200 level HTTP codes.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.HTTP400Error" title="vmtconnect.HTTP400Error"><strong>HTTP400Error</strong></a> – All unhandled 400 level client errors.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.HTTP401Error" title="vmtconnect.HTTP401Error"><strong>HTTP401Error</strong></a> – When access to the resource is not authorized.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.HTTP404Error" title="vmtconnect.HTTP404Error"><strong>HTTP404Error</strong></a> – When requested resource is not found.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.HTTP500Error" title="vmtconnect.HTTP500Error"><strong>HTTP500Error</strong></a> – All unhandled 500 level server errors.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.HTTP502Error" title="vmtconnect.HTTP502Error"><strong>HTTP502Error</strong></a> – When a gateway times out.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.HTTP503Error" title="vmtconnect.HTTP503Error"><strong>HTTP503Error</strong></a> – When a service is unavailable.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.search" title="Permalink to this definition"></a></dt>
+<dd><p>Raw search method.</p>
+<p>Provides a basic interface for issuing direct queries to the Turbonomic
+search endpoint. There are three sets of possible parameters, which must
+not be mixed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Set</strong> – </p></li>
+<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Query string.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Types of entities to return. Must include either
+<cite>types</cite> or <cite>group_type</cite>.</p></li>
+<li><p><strong>scopes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – Entities to scope to.</p></li>
+<li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – State filter.</p></li>
+<li><p><strong>environment_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Environment filter.</p></li>
+<li><p><strong>group_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Group type filter. Must include either <cite>types</cite> or
+<cite>group_type</cite>.</p></li>
+<li><p><strong>detail_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Entity detail filter.</p></li>
+<li><p><strong>entity_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – Member entity types filter.</p></li>
+<li><p><strong>probe_types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – Target probe type filter.</p></li>
+<li><p><strong>regex</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Flag for regex query string searching.</p></li>
+<li><p><strong>query_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Specifies the type of query.</p></li>
+<li><p><strong>Set</strong> – </p></li>
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – UUID of an object to lookup.</p></li>
+<li><p><strong>Set</strong> – </p></li>
+<li><p><strong>dto</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – JSON representation of the StatScopesApiInputDTO.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of search results.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://turbonomic.github.io/vmt-connect/start.html#turbonomic-rest-api-guides">https://turbonomic.github.io/vmt-connect/start.html#turbonomic-rest-api-guides</a></p>
+<p>Search criteria list: <cite>http://&lt;host&gt;/vmturbo/rest/search/criteria</cite></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.search_by_name">
+<span class="sig-name descname"><span class="pre">search_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_sensitive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.search_by_name" title="Permalink to this definition"></a></dt>
+<dd><p>Searches for an entity by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Display name of the entity to search for.</p></li>
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – One or more entity classifications to aid in
+searching. If None, all types are searched via consecutive
+requests.</p></li>
+<li><p><strong>case_sensitive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Search case sensitivity. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>from_cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – Uses the cached inventory if set. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The option from_cache is deprecated, and will be removed in a future
+version. This is due primarily to large memory concerns on XL instances.
+Pagination should be used instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of matching results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.update_action">
+<span class="sig-name descname"><span class="pre">update_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accept</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.update_action" title="Permalink to this definition"></a></dt>
+<dd><p>Update a manual action by accepting or rejecting it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – UUID of action to update.</p></li>
+<li><p><strong>accept</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – <code class="docutils literal notranslate"><span class="pre">True</span></code> to accept, or <code class="docutils literal notranslate"><span class="pre">False</span></code> to reject the action.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.Connection.update_static_group_members">
+<span class="sig-name descname"><span class="pre">update_static_group_members</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Connection.update_static_group_members" title="Permalink to this definition"></a></dt>
+<dd><p>Update static group members by fully replacing it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – UUID of the group to be updated.</p></li>
+<li><p><strong>members</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of member entity UUIDs.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Display name of the group.</p></li>
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Ignored - kept for backwards compatibility</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The updated group definition.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="session">
+<h4><a class="toc-backref" href="#id4">Session</a><a class="headerlink" href="#session" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.Session">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Session" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a></p>
+<p>Alias for <a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> to provide convenience.</p>
+<p>See <a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> for parameter details.</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The value for the <code class="xref py py-class docutils literal notranslate"><span class="pre">session</span></code> property will always be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> when using <a class="reference internal" href="#vmtconnect.Session" title="vmtconnect.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a></p>
+</div>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="response-handlers">
+<h3><a class="toc-backref" href="#id5">Response Handlers</a><a class="headerlink" href="#response-handlers" title="Permalink to this heading"></a></h3>
+<section id="pager">
+<h4><a class="toc-backref" href="#id6">Pager</a><a class="headerlink" href="#pager" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.Pager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">Pager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_float</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Pager" title="Permalink to this definition"></a></dt>
+<dd><p>API request pager class</p>
+<p>A <a class="reference internal" href="#vmtconnect.Pager" title="vmtconnect.Pager"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pager</span></code></a> is a special request handler which permits the processing
+of paged <a class="reference internal" href="#vmtconnect.Connection.request" title="vmtconnect.Connection.request"><code class="xref py py-meth docutils literal notranslate"><span class="pre">request()</span></code></a> results, keeping state between each
+successive call. Although you can instantiate a <a class="reference internal" href="#vmtconnect.Pager" title="vmtconnect.Pager"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pager</span></code></a> directly,
+it is strongly recommended to request one by adding <code class="docutils literal notranslate"><span class="pre">pager=True</span></code> to your
+existing <a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> method call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn</strong> (<a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a>) – Connection object to associate the pager
+to.</p></li>
+<li><p><strong>response</strong> (<a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Response</span></code></a>) – Requests <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Response</span></code></a>
+object to build the pager from. This must be the object, and not the
+JSON parsed output.</p></li>
+<li><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Filter to apply to results.</p></li>
+<li><p><strong>**kwargs</strong> – Additional <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Request" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Request</span></code></a> keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.all">
+<span class="sig-name descname"><span class="pre">all</span></span><a class="headerlink" href="#vmtconnect.Pager.all" title="Permalink to this definition"></a></dt>
+<dd><p>Collect and list all responses combined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.complete">
+<span class="sig-name descname"><span class="pre">complete</span></span><a class="headerlink" href="#vmtconnect.Pager.complete" title="Permalink to this definition"></a></dt>
+<dd><p>Flag indicating the cursor has been exhausted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.next">
+<span class="sig-name descname"><span class="pre">next</span></span><a class="headerlink" href="#vmtconnect.Pager.next" title="Permalink to this definition"></a></dt>
+<dd><p>Next response object. Calling this
+updates the <a class="reference internal" href="#vmtconnect.Pager" title="vmtconnect.Pager"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pager</span></code></a> internal state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.page">
+<span class="sig-name descname"><span class="pre">page</span></span><a class="headerlink" href="#vmtconnect.Pager.page" title="Permalink to this definition"></a></dt>
+<dd><p>Current page index, as counted by number of responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.records">
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#vmtconnect.Pager.records" title="Permalink to this definition"></a></dt>
+<dd><p>Count of records in the current page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.records_fetched">
+<span class="sig-name descname"><span class="pre">records_fetched</span></span><a class="headerlink" href="#vmtconnect.Pager.records_fetched" title="Permalink to this definition"></a></dt>
+<dd><p>Cumulative count of records received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.records_total">
+<span class="sig-name descname"><span class="pre">records_total</span></span><a class="headerlink" href="#vmtconnect.Pager.records_total" title="Permalink to this definition"></a></dt>
+<dd><p>Count of records reported by the API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Pager.response">
+<span class="sig-name descname"><span class="pre">response</span></span><a class="headerlink" href="#vmtconnect.Pager.response" title="Permalink to this definition"></a></dt>
+<dd><p>Most recent response object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Request" title="(in Requests v2.28.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Request</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#vmtconnect.VMTNextCursorMissingError" title="vmtconnect.VMTNextCursorMissingError"><strong>VMTNextCursorMissingError</strong></a> – When cursor headers are broken or missing.</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The use of the <a class="reference internal" href="#vmtconnect.Pager.all" title="vmtconnect.Pager.all"><code class="xref py py-attr docutils literal notranslate"><span class="pre">all</span></code></a> property negates all memory savings by
+caching all responses before returning any results. This should be used
+sparringly to prevent unnecessary and excessive memory usage for extremely
+large datasets.</p>
+<p>Some versions of Turbonomic have endpoints that return malformed, or
+non-working pagination headers. These are chiefly XL versions prior to
+7.21.2.</p>
+<p>It is possible a cursor may expire before you’ve processed all results
+for extremely large sets. A <a class="reference internal" href="#vmtconnect.VMTNextCursorMissingError" title="vmtconnect.VMTNextCursorMissingError"><code class="xref py py-class docutils literal notranslate"><span class="pre">VMTNextCursorMissingError</span></code></a> will
+be returned when the cursor is no longer availble. Therefore, you should
+always catch this error type when working with a <a class="reference internal" href="#vmtconnect.Pager" title="vmtconnect.Pager"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pager</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="versioning">
+<h3><a class="toc-backref" href="#id7">Versioning</a><a class="headerlink" href="#versioning" title="Permalink to this heading"></a></h3>
+<section id="version">
+<h4><a class="toc-backref" href="#id8">Version</a><a class="headerlink" href="#version" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.Version">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">Version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.Version" title="Permalink to this definition"></a></dt>
+<dd><p>Turbonomic instance version object</p>
+<p>The <a class="reference internal" href="#vmtconnect.Version" title="vmtconnect.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a> object contains instance version information, and
+equivalent Turbonomic version information in the case of a white label
+product.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>version</strong> (<em>obj</em>) – Version object returned by Turbonomic instance.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Version.version">
+<span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#vmtconnect.Version.version" title="Permalink to this definition"></a></dt>
+<dd><p>Reported Instance version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Version.product">
+<span class="sig-name descname"><span class="pre">product</span></span><a class="headerlink" href="#vmtconnect.Version.product" title="Permalink to this definition"></a></dt>
+<dd><p>Reported Product name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Version.snapshot">
+<span class="sig-name descname"><span class="pre">snapshot</span></span><a class="headerlink" href="#vmtconnect.Version.snapshot" title="Permalink to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the build is a snapshot / dev build, <code class="docutils literal notranslate"><span class="pre">False</span></code>
+otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Version.base_version">
+<span class="sig-name descname"><span class="pre">base_version</span></span><a class="headerlink" href="#vmtconnect.Version.base_version" title="Permalink to this definition"></a></dt>
+<dd><p>Equivalent Turbonomic version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Version.base_build">
+<span class="sig-name descname"><span class="pre">base_build</span></span><a class="headerlink" href="#vmtconnect.Version.base_build" title="Permalink to this definition"></a></dt>
+<dd><p>Equivalent Turbonomic build</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.Version.base_branch">
+<span class="sig-name descname"><span class="pre">base_branch</span></span><a class="headerlink" href="#vmtconnect.Version.base_branch" title="Permalink to this definition"></a></dt>
+<dd><p>Equivalent Turbonomic branch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#vmtconnect.VMTUnknownVersion" title="vmtconnect.VMTUnknownVersion"><strong>VMTUnknownVersion</strong></a> – When version data cannot be parsed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="versionspec">
+<h4><a class="toc-backref" href="#id9">VersionSpec</a><a class="headerlink" href="#versionspec" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.VersionSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VersionSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snapshot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmp_base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.VersionSpec" title="Permalink to this definition"></a></dt>
+<dd><p>Turbonomic version specification object</p>
+<p>The <a class="reference internal" href="#vmtconnect.VersionSpec" title="vmtconnect.VersionSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">VersionSpec</span></code></a> object contains version compatibility and
+requirements information. Versions must be in dotted format, and may
+optionally have a ‘+’ postfix to indicate versions greater than or equal
+to are acceptable. If using ‘+’, you only need to specify the minimum
+version required, as all later versions will be accepted independent of
+minor release branch. E.g. 6.0+ includes 6.1, 6.2, and all later branches.</p>
+<p class="rubric">Examples</p>
+<p>VersionSpec([‘6.0+’], exclude=[‘6.0.1’, ‘6.1.2’, ‘6.2.5’, ‘6.3.0’])</p>
+<p>VersionSpec([‘7.21+’], snapshot=True)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>versions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – A list of acceptable versions.</p></li>
+<li><p><strong>exclude</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>, </em><em>optional</em>) – A list of versions to explicitly exclude.</p></li>
+<li><p><strong>required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to True, an error is thrown if no
+matching version is found when <code class="xref py py-meth docutils literal notranslate"><span class="pre">check()</span></code> is run.
+(Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+<li><p><strong>snapshot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If set to True, will permit connection to
+snapshot builds tagged with ‘-SNAPSHOT’. (Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>cmp_base</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, white label versions will be
+translated to their corresponding base Turbonomic version prior to
+comparison. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, only the explicit product version will be
+compared. (Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#vmtconnect.VMTFormatError" title="vmtconnect.VMTFormatError"><strong>VMTFormatError</strong></a> – If the version format cannot be parsed.</p></li>
+<li><p><a class="reference internal" href="#vmtconnect.VMTVersionError" title="vmtconnect.VMTVersionError"><strong>VMTVersionError</strong></a> – If version requirement is not met.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The Turbonomic API is not a well versioned REST API, and each release is
+treated as if it were a separate API, while retaining the name of
+“API 2.0” to distinguish it from the “API 1.0” implementation available
+prior to the Turbonomic HTML UI released with v6.0 of the core product.</p>
+<p>As of v3.2.0 <cite>required</cite> now defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.VersionSpec.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.VersionSpec.check" title="Permalink to this definition"></a></dt>
+<dd><p>Checks a <a class="reference internal" href="#vmtconnect.Version" title="vmtconnect.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a> for validity against the <a class="reference internal" href="#vmtconnect.VersionSpec" title="vmtconnect.VersionSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">VersionSpec</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>version</strong> (<em>obj</em>) – The <a class="reference internal" href="#vmtconnect.Version" title="vmtconnect.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a> to check.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if valid, False if the version is excluded or not found.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#vmtconnect.VMTVersionError" title="vmtconnect.VMTVersionError"><strong>VMTVersionError</strong></a> – If version requirement is not met.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="utilities">
+<h3><a class="toc-backref" href="#id10">Utilities</a><a class="headerlink" href="#utilities" title="Permalink to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="vmtconnect.enumerate_stats">
+<span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">enumerate_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.enumerate_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Provided as an alias for backwards compatibility only.</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="exceptions">
+<h3><a class="toc-backref" href="#id11">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this heading"></a></h3>
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.VMTConnectionError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTConnectionError</span></span><a class="headerlink" href="#vmtconnect.VMTConnectionError" title="Permalink to this definition"></a></dt>
+<dd><p>Base connection exception class.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.VMTVersionError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTVersionError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.VMTVersionError" title="Permalink to this definition"></a></dt>
+<dd><p>Incompatible version error.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.VMTUnknownVersion">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTUnknownVersion</span></span><a class="headerlink" href="#vmtconnect.VMTUnknownVersion" title="Permalink to this definition"></a></dt>
+<dd><p>Unknown version.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.VMTVersionWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTVersionWarning</span></span><a class="headerlink" href="#vmtconnect.VMTVersionWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Generic version warning.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.VMTMinimumVersionWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTMinimumVersionWarning</span></span><a class="headerlink" href="#vmtconnect.VMTMinimumVersionWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Minimum version warnings.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.VMTFormatError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTFormatError</span></span><a class="headerlink" href="#vmtconnect.VMTFormatError" title="Permalink to this definition"></a></dt>
+<dd><p>Generic format error.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.VMTNextCursorMissingError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTNextCursorMissingError</span></span><a class="headerlink" href="#vmtconnect.VMTNextCursorMissingError" title="Permalink to this definition"></a></dt>
+<dd><p>Raised if the paging cursor header is not provided when expected</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTPError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTPError</span></span><a class="headerlink" href="#vmtconnect.HTTPError" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when an blocking or unknown HTTP error is returned.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTP400Error">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTP400Error</span></span><a class="headerlink" href="#vmtconnect.HTTP400Error" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when an HTTP 400 error is returned.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTP401Error">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTP401Error</span></span><a class="headerlink" href="#vmtconnect.HTTP401Error" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when access fails, due to bad login or insufficient permissions.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTP404Error">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTP404Error</span></span><a class="headerlink" href="#vmtconnect.HTTP404Error" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when a requested resource cannot be located.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTP500Error">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTP500Error</span></span><a class="headerlink" href="#vmtconnect.HTTP500Error" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when an HTTP 500 error is returned.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTP502Error">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTP502Error</span></span><a class="headerlink" href="#vmtconnect.HTTP502Error" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when an HTTP 502 Bad Gateway error is returned. In most cases this
+indicates a timeout issue with synchronous calls to Turbonomic and can be
+safely ignored.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTP503Error">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTP503Error</span></span><a class="headerlink" href="#vmtconnect.HTTP503Error" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when an HTTP 503 Service Unavailable error is returned. Subsequent
+calls should be expected to fail, and this should be treated as terminal to
+the session.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="vmtconnect.HTTPWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">HTTPWarning</span></span><a class="headerlink" href="#vmtconnect.HTTPWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Raised when an HTTP error can always be safely ignored.</p>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="deprecated-interfaces">
+<h3><a class="toc-backref" href="#id12">Deprecated Interfaces</a><a class="headerlink" href="#deprecated-interfaces" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.VMTConnection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTConnection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.VMTConnection" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for <a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> to provide backwards compatibility.</p>
+<p>See <a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> for parameter details.</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>The value for <code class="xref py py-class docutils literal notranslate"><span class="pre">session</span></code> will default to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+when using <a class="reference internal" href="#vmtconnect.VMTConnection" title="vmtconnect.VMTConnection"><code class="xref py py-class docutils literal notranslate"><span class="pre">VMTConnection</span></code></a></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deprecated. Use <a class="reference internal" href="#vmtconnect.Connection" title="vmtconnect.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> or <a class="reference internal" href="#vmtconnect.Session" title="vmtconnect.Session"><code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code></a>
+instead.</p>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.VMTVersion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.</span></span><span class="sig-name descname"><span class="pre">VMTVersion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.VMTVersion" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for <a class="reference internal" href="#vmtconnect.VersionSpec" title="vmtconnect.VersionSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">VersionSpec</span></code></a> to provide backwards compatibility.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deprecated. Use <a class="reference internal" href="#vmtconnect.VersionSpec" title="vmtconnect.VersionSpec"><code class="xref py py-class docutils literal notranslate"><span class="pre">VersionSpec</span></code></a> instead.</p>
+</div>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="security-module">
+<h2><a class="toc-backref" href="#id13">Security Module</a><a class="headerlink" href="#security-module" title="Permalink to this heading"></a></h2>
+<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">Import:</span></code> <strong>vmtconnect.security</strong></p>
+<section id="classes">
+<h3><a class="toc-backref" href="#id14">Classes</a><a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
+<section id="credential">
+<h4><a class="toc-backref" href="#id15">Credential</a><a class="headerlink" href="#credential" title="Permalink to this heading"></a></h4>
+<dl class="py class">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vmtconnect.security.</span></span><span class="sig-name descname"><span class="pre">Credential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cred</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential" title="Permalink to this definition"></a></dt>
+<dd><p>Credentials for authenticating to the Turbonomic API.</p>
+<p>Upon initialization <code class="xref py py-class docutils literal notranslate"><span class="pre">Credential</span></code> will check the key
+filepath, and if present the key will be read into memory; otherwise a new
+key will be randomly generated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the key file.</p></li>
+<li><p><strong>cred</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Path to the credential token.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.uid">
+<span class="sig-name descname"><span class="pre">uid</span></span><a class="headerlink" href="#vmtconnect.security.Credential.uid" title="Permalink to this definition"></a></dt>
+<dd><p>User id to set new files to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.gid">
+<span class="sig-name descname"><span class="pre">gid</span></span><a class="headerlink" href="#vmtconnect.security.Credential.gid" title="Permalink to this definition"></a></dt>
+<dd><p>Group id to set new files to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#vmtconnect.security.Credential.mode" title="Permalink to this definition"></a></dt>
+<dd><p>File mode (octal format 0oNNN is ok), to apply to new files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.create" title="Permalink to this definition"></a></dt>
+<dd><p>Create and save to file a new cipher key and encrypted message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Cipher key to use for encryption. If null, a new key will
+be generated. (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Message to be encrypted. If null, you will be prompted
+for a username and password pair interactively.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> existing key or message data will be
+overwritten. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.decrypt">
+<span class="sig-name descname"><span class="pre">decrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.decrypt" title="Permalink to this definition"></a></dt>
+<dd><p>Decrypt the token using the given key, and return the message. If the
+token file was provided at init, it will be used here, otherwise a valid
+token must be supplied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.10)"><em>bytes</em></a><em>, </em><em>optional</em>) – Encrypted token to decrypt.</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Cipher key to use for decryption.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The decrypted message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.encrypt">
+<span class="sig-name descname"><span class="pre">encrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.encrypt" title="Permalink to this definition"></a></dt>
+<dd><p>Encrypt the given message with the given key and return the token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Message or data to be encrypted.</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Cipher key to use for encryption.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The encrypted token.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.get" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve and decrypt credentials</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Credentials in the form of a Base64 auth string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.get_cipher">
+<span class="sig-name descname"><span class="pre">get_cipher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.get_cipher" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a Fernet cipher for the given key</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.new_key">
+<span class="sig-name descname"><span class="pre">new_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.new_key" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a new key.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.prompt_credentials">
+<span class="sig-name descname"><span class="pre">prompt_credentials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.prompt_credentials" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves a new set of credentials from the user, returning a Base64
+auth string response.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vmtconnect.security.Credential.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.security.Credential.set" title="Permalink to this definition"></a></dt>
+<dd><p>Encrypt the given message with the specified key, and save each to
+their respective files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Data to be encrypted.</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>optional</em>) – Cipher key to encrypt the message with.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> existing key or message data will be
+overwritten. (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+</section>
+<section id="utility-module">
+<h2><a class="toc-backref" href="#id16">Utility Module</a><a class="headerlink" href="#utility-module" title="Permalink to this heading"></a></h2>
+<p><code class="xref py py-attr docutils literal notranslate"><span class="pre">Import:</span></code> <strong>vmtconnect.util</strong></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="vmtconnect.util.enumerate_stats">
+<span class="sig-prename descclassname"><span class="pre">vmtconnect.util.</span></span><span class="sig-name descname"><span class="pre">enumerate_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.util.enumerate_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Enumerates stats endpoint results</p>
+<p>Provides an iterator for more intuitive and cleaner parsing of nested
+statistics results. Each iteration returns a tuple containing the statistics
+period <cite>date</cite> timestamp, as well as the next individual statistic entry as
+a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Stats endpoint data results to parse.</p></li>
+<li><p><strong>entity</strong> (<em>function</em><em>, </em><em>optional</em>) – Optional entity level filter function.</p></li>
+<li><p><strong>period</strong> (<em>function</em><em>, </em><em>optional</em>) – Optional period level filter function.</p></li>
+<li><p><strong>stat</strong> (<em>function</em><em>, </em><em>optional</em>) – Optional statistic level filter function.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Filter functions must return <code class="docutils literal notranslate"><span class="pre">True</span></code>, to continue processing, or <code class="docutils literal notranslate"><span class="pre">False</span></code>
+to skip processing the current level element.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter stats for a specific ID</span>
+<span class="n">desired_id</span> <span class="o">=</span> <span class="s1">&#39;284552108476721&#39;</span>
+<span class="n">enumerate_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">entity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">desired_uuid</span><span class="p">)</span>
+
+<span class="c1"># filter specific stats for all IDs</span>
+<span class="n">blacklist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Ballooning&#39;</span><span class="p">]</span>
+<span class="n">enumerate_stats</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">blacklist</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="vmtconnect.util.mem_cast">
+<span class="sig-prename descclassname"><span class="pre">vmtconnect.util.</span></span><span class="sig-name descname"><span class="pre">mem_cast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.util.mem_cast" title="Permalink to this definition"></a></dt>
+<dd><p>Converts memory from one unit of measure to another. Values are interpreted
+as base 2 values (JEDEC memory standard), not SI values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>string</em>) – Base value, represented as a string.</p></li>
+<li><p><strong>unit</strong> (<em>string</em>) – Destination value to convert to. (default: <code class="docutils literal notranslate"><span class="pre">G</span></code>)</p></li>
+<li><p><strong>src</strong> (<em>string</em>) – Source value unit of measure to convert from. (default: <code class="docutils literal notranslate"><span class="pre">b</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="vmtconnect.util.to_defaultdict">
+<span class="sig-prename descclassname"><span class="pre">vmtconnect.util.</span></span><span class="sig-name descname"><span class="pre">to_defaultdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vmtconnect.util.to_defaultdict" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a list or dictionary to a defaultdict object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>factory</strong> (<em>obj</em>) – Used as the default value.</p></li>
+<li><p><strong>data</strong> (<em>obj</em>) – List or dict to convert.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.python.org/3.8/library/collections.html#defaultdict-objects">https://docs.python.org/3.8/library/collections.html#defaultdict-objects</a></p>
+</div>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="advancedguide.html" class="btn btn-neutral float-left" title="Advanced Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
